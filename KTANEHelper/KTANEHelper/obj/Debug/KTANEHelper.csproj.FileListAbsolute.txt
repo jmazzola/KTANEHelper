@@ -1,0 +1,9 @@
+F:\Dropbox\Fullsail Backup\Experiments\KTANEHelper\KTANEHelper\KTANEHelper\bin\Debug\KTANEHelper.exe.config
+F:\Dropbox\Fullsail Backup\Experiments\KTANEHelper\KTANEHelper\KTANEHelper\bin\Debug\KTANEHelper.exe
+F:\Dropbox\Fullsail Backup\Experiments\KTANEHelper\KTANEHelper\KTANEHelper\bin\Debug\KTANEHelper.pdb
+F:\Dropbox\Fullsail Backup\Experiments\KTANEHelper\KTANEHelper\KTANEHelper\obj\Debug\KTANEHelper.csprojResolveAssemblyReference.cache
+F:\Dropbox\Fullsail Backup\Experiments\KTANEHelper\KTANEHelper\KTANEHelper\obj\Debug\KTANEHelper.Form1.resources
+F:\Dropbox\Fullsail Backup\Experiments\KTANEHelper\KTANEHelper\KTANEHelper\obj\Debug\KTANEHelper.Properties.Resources.resources
+F:\Dropbox\Fullsail Backup\Experiments\KTANEHelper\KTANEHelper\KTANEHelper\obj\Debug\KTANEHelper.csproj.GenerateResource.Cache
+F:\Dropbox\Fullsail Backup\Experiments\KTANEHelper\KTANEHelper\KTANEHelper\obj\Debug\KTANEHelper.exe
+F:\Dropbox\Fullsail Backup\Experiments\KTANEHelper\KTANEHelper\KTANEHelper\obj\Debug\KTANEHelper.pdb
