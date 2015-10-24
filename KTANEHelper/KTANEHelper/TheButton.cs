@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// TheButton - Handles everything about The Button module.
+
 namespace KTANEHelper
 {
     class TheButton

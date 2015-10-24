@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Speech.Recognition;
 
-// SimpleWires - Handles everything about Simple Wires (3-5 wires with colors)
+// SimpleWires - Handles everything about Wires module. (3-6 wires with colors)
 
 namespace KTANEHelper
 {

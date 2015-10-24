@@ -93,16 +93,20 @@ namespace KTANEHelper
                         speechTalk.Speak("The last serial is even");
                 }
 
-                // "has ___ batteries"
-                if (DidSay(alternates, "batteries", ref index))
+                // "has ___ batteries" || "has __ battery"
+                if (DidSay(alternates, "batteries", ref index) || DidSay(alternates, "battery", ref index))
                 {
                     bombInfo.DetermineBatteryCount(e.Result.Text);
 
-                    speechTalk.SpeakAsync(" There is " + bombInfo.NumBatteries.ToString() + " Batteries");
+                    if(bombInfo.NumBatteries == 1)
+                        speechTalk.SpeakAsync("There is " + bombInfo.NumBatteries.ToString() + " battery");
+                    else if(bombInfo.NumBatteries > 1)
+                        speechTalk.SpeakAsync("There are " + bombInfo.NumBatteries.ToString() + " batteries");
+
                 }
 
-                // "has a vowel"
-                if (DidSay(alternates, "is a vowel", ref index))
+                // "is a vowel" || "has a vowel"
+                if (DidSay(alternates, "is a vowel", ref index) || (DidSay(alternates, "has a vowel", ref index)))
                 {
                     bombInfo.SerialHasVowel = true;
 
@@ -112,8 +116,8 @@ namespace KTANEHelper
                         speechTalk.Speak("The serial DOES NOT contain a vowel.");
                 }
 
-                // "doesn't have a vowel"
-                if (DidSay(alternates, "no vowel", ref index))
+                //  "no vowel" || "doesn't have a vowel"
+                if (DidSay(alternates, "no vowel", ref index) || (DidSay(alternates, "doesn't have a vowel", ref index)))
                 {
                     bombInfo.SerialHasVowel = false;
 
