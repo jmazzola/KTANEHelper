@@ -31,6 +31,7 @@ namespace KTANEHelper
         GlobalInformation bombInfo = null;
 
         SimpleWires simpWires = null;
+        TheButton button = null;
 
         bool DidSay(string[] phrases, string phrase, ref int retrievedIndex)
         {
@@ -81,8 +82,8 @@ namespace KTANEHelper
 
             // -- BOMB INFORMATION --
             {
-                // "serial digit ___ number (0-9)"
-                if (DidSay(alternates, "serial digit", ref index))
+                // "number has ___ number (0-9)"
+                if (DidSay(alternates, "number", ref index))
                 {
                     bombInfo.DetermineLastDigit(e.Result.Text);
 
@@ -92,8 +93,16 @@ namespace KTANEHelper
                         speechTalk.Speak("The last serial is even");
                 }
 
+                // "has ___ batteries"
+                if (DidSay(alternates, "batteries", ref index))
+                {
+                    bombInfo.DetermineBatteryCount(e.Result.Text);
+
+                    speechTalk.SpeakAsync(" There is " + bombInfo.NumBatteries.ToString() + " Batteries");
+                }
+
                 // "has a vowel"
-                if (DidSay(alternates, "has a vowel", ref index))
+                if (DidSay(alternates, "is a vowel", ref index))
                 {
                     bombInfo.SerialHasVowel = true;
 
@@ -104,7 +113,7 @@ namespace KTANEHelper
                 }
 
                 // "doesn't have a vowel"
-                if (DidSay(alternates, "doesn't have a vowel", ref index))
+                if (DidSay(alternates, "no vowel", ref index))
                 {
                     bombInfo.SerialHasVowel = false;
 
@@ -112,6 +121,36 @@ namespace KTANEHelper
                         speechTalk.Speak("The serial contains a vowel.");
                     else
                         speechTalk.Speak("The serial DOES NOT contain a vowel.");
+                }
+
+                // "freak light"
+                if (DidSay(alternates, "light F", ref index))
+                {
+                    bombInfo.FRKLit = true;
+                }
+
+                // "freak status"
+                if(DidSay(alternates, "get F", ref index))
+                {
+                    if (bombInfo.FRKLit)
+                        speechTalk.Speak("FRK is lit");
+                    else
+                        speechTalk.Speak("FRK is not lit");
+                }
+
+                // "CAR light"
+                if (DidSay(alternates, "light CAR", ref index))
+                {
+                    bombInfo.CARLit = true;
+                }
+
+                // "CAR status"
+                if (DidSay(alternates, "get car", ref index))
+                {
+                    if (bombInfo.CARLit)
+                        speechTalk.Speak("CAR is lit");
+                    else
+                        speechTalk.Speak("CAR is not lit");
                 }
             }
 
@@ -142,12 +181,32 @@ namespace KTANEHelper
             // -- THE BUTTON -- 
             {
                 // "button [color] [text]"
-                if (DidSay(alternates, "button", ref index))
+                if (DidSay(alternates, "push color", ref index))
                 {
+                    string correctSpeech = alternates[index];
+                    string[] buttonSeq = correctSpeech.Split(' ');
+                    string[] input = new string[buttonSeq.Length - 2];
 
+                    for (int i = 2; i < buttonSeq.Length; i++)
+                        input[i - 2] = buttonSeq[i];
+
+                    speechTalk.SpeakAsync(button.ParseSolution(input));
+                }
+
+                // "strip color [color]"
+                if (DidSay(alternates, "strip color", ref index))
+                {
+                    string strips = alternates[index];
+                    string[] striped = strips.Split(' ');
+
+                    speechTalk.SpeakAsync(button.GetNumberToReleaseOn(striped[2]));
                 }
             }
 
+            // -- KEYPADS -- 
+            {
+
+            }
         }
 
 
@@ -161,6 +220,9 @@ namespace KTANEHelper
 
             // Set up SimpleWires module
             simpWires = new SimpleWires(ref bombInfo);
+
+            // Set up TheButton module
+            button = new TheButton(ref bombInfo);
 
         }
     }

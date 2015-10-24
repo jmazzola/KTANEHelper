@@ -11,11 +11,19 @@ namespace KTANEHelper
     class GlobalInformation
     {
         // Is the last digit in the serial number odd? 
-        bool lastSerialDigitOdd;
+        bool lastSerialDigitOdd = false;
 
         // Does the serial contain a vowel?
-        bool serialHasVowel;
+        bool serialHasVowel = false;
 
+        // How many batteries does the bomb have?
+        int numBatteries = -1;
+
+        // Is the FRK indicator lit?
+        bool frkLit = false;
+
+        // Is the CAR indicator lit?
+        bool carLit = false;
 
         public bool LastSerialDigitOdd
         {
@@ -29,6 +37,24 @@ namespace KTANEHelper
             set { serialHasVowel = value; }
         }
 
+        public int NumBatteries
+        {
+            get { return numBatteries; }
+            set { numBatteries = value; }
+        }
+
+        public bool FRKLit
+        {
+            get { return frkLit; }
+            set { frkLit = value; }
+        }
+
+        public bool CARLit
+        {
+            get { return carLit; }
+            set { carLit = value; }
+        }
+
         bool BContains(string text, string token)
         {
             return text.IndexOf(token, StringComparison.OrdinalIgnoreCase) >= 0;
@@ -40,6 +66,18 @@ namespace KTANEHelper
                 lastSerialDigitOdd = true;
             else if (BContains(digit, "zero") || BContains(digit, "o") || BContains(digit, "two") || BContains(digit, "four") || BContains(digit, "six") || BContains(digit, "eight"))
                 lastSerialDigitOdd = false;
+        }
+
+        public void DetermineBatteryCount(string count)
+        {
+            if (BContains(count, "one"))
+                numBatteries = 1;
+            else if (BContains(count, "two"))
+                numBatteries = 2;
+            else if (BContains(count, "a lot") || BContains(count, "shit ton"))
+                numBatteries = 1337;
+            else
+                numBatteries = 69;
         }
     }
 }
